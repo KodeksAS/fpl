@@ -185,7 +185,7 @@
 
                 }
         
-                $total = $json->summary_overall_points - $live_points;
+                $total = $json->summary_overall_points - $json->summary_event_points;
                 $total += $live_points; 
                 
                 
