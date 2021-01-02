@@ -30,9 +30,6 @@
                 align-items: center;
             }
 
-
-
-
             .player {
                 margin-top: 2vw;
                 width: 46vw;
@@ -187,10 +184,11 @@
                     }
 
                 }
-                
-                $total = $json->summary_overall_points;
+        
+                $total = $json->summary_overall_points - $live_points;
                 $total += $live_points; 
-
+                
+                
                 echo '<div class="player" data-gameweek="'.$json->summary_event_points.'" data-overall="'.$json->summary_overall_points.'">';
                 echo '<strong><span>'.$json->name.'</span>';
                 if($gameweek->active_chip){
