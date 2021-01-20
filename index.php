@@ -168,27 +168,36 @@
                 $live = json_decode($live);
 
                 $live_points = 0;
-                
+
                 foreach($gameweek->picks as $player){
-                    
+
                     foreach($live->elements as $points){
-                        if($points->id == $player->element && $player->position <= 11){
-                            
+
+                        if($gameweek->active_chip == 'bboost'){
+                            if($points->id == $player->element){
+                                if($player->is_captain){
+                                    $live_points += $points->stats->total_points * 2;
+                                } else {
+                                    $live_points += $points->stats->total_points;
+                                }
+                            }
+                        } elseif ($points->id == $player->element && $player->position <= 11){
+
                             if($player->is_captain){
                                 $live_points += $points->stats->total_points * 2;
                             } else {
                                 $live_points += $points->stats->total_points;
                             }
-                            
+
                         }
                     }
 
                 }
-        
+
                 $total = $json->summary_overall_points - $json->summary_event_points;
                 $total += $live_points; 
-                
-                
+
+
                 echo '<div class="player" data-gameweek="'.$json->summary_event_points.'" data-overall="'.$json->summary_overall_points.'">';
                 echo '<strong><span>'.$json->name.'</span>';
                 if($gameweek->active_chip){
